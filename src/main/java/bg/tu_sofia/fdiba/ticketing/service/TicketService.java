@@ -58,7 +58,7 @@ public class TicketService {
 
         switch (cardType) {
             case "STANDARD": break;
-            case "STUDENT": discount += 5; break;
+            case "FAMILY": discount += 10; break;
             case "SENIOR": discount += 34; break;
             default: break;
         }
