@@ -27,11 +27,12 @@ public class TicketController {
     }
 
     @GetMapping("/getTicket")
-    public List<Ticket> getTickets(
+    public ResponseEntity<Object> getTickets(
             @RequestParam(required = false) String tripTicketType,
             @RequestParam(required = false) String startPoint,
             @RequestParam(required = false) String endPoint,
             @RequestParam(required = false) String cardType) {
+
         return ticketService.findTickets(tripTicketType, cardType ,startPoint, endPoint);
     }
 }

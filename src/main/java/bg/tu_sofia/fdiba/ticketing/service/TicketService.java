@@ -42,15 +42,23 @@ public class TicketService {
         return this.ticketRepository.findAll();
     }
 
-    public List<Ticket> findTickets(String tripTicketType, String cardType, String startPoint, String endPoint) {
+    public ResponseEntity<Object> findTickets(String tripTicketType, String cardType, String startPoint, String endPoint) {
         Specification<Ticket> specification = Specification
                 .where(tripTicketType != null ? TicketSpecification.hasTripTicketType(tripTicketType) : null)
                 .and(startPoint != null ? TicketSpecification.hasStartPoint(startPoint) : null)
                 .and(endPoint != null ? TicketSpecification.hasEndPoint(endPoint) : null);
 
-        return ticketRepository.findAll(specification).stream()
+        List<Ticket> tickets = ticketRepository.findAll(specification);
+
+        if (tickets.isEmpty()) {
+            return new ResponseEntity<>("Tickets not found", HttpStatus.BAD_REQUEST);
+        }
+
+        tickets = tickets.stream()
                 .peek((ticket -> ticket.setEndPrice(calcPromotionPrice(cardType, ticket))))
-                .collect(Collectors.toList());
+                .toList();
+
+        return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
     private Double calcPromotionPrice(final String cardType, final Ticket ticket) {
@@ -69,6 +77,7 @@ public class TicketService {
 
         discount = (discount * 0.01);
         double result = Math.round(ticket.getPrice() - (ticket.getPrice() * discount));
+
         return result;
 
     }
