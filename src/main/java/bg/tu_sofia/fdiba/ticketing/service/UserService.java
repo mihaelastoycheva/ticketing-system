@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserService {
@@ -23,7 +22,7 @@ public class UserService {
     public ResponseEntity<String> registerUser(final User user) {
         final String username = user.getUsername();
 
-        Optional<User> optionalUser = this.userRepository.findByUsername(username);
+        final Optional<User> optionalUser = this.userRepository.findByUsername(username);
 
         if (optionalUser.isPresent()) {
             throw new UserAlreadyExistsException();
@@ -36,7 +35,7 @@ public class UserService {
     }
 
     public ResponseEntity<String> loginUser(final String username, final String password) {
-        User user = this.userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+        final User user = this.userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
 
         if (!user.getPassword().equals(password)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);

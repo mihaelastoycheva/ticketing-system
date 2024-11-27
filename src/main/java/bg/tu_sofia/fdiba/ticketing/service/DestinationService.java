@@ -1,11 +1,14 @@
 package bg.tu_sofia.fdiba.ticketing.service;
 
 import bg.tu_sofia.fdiba.ticketing.exception.StartingPointNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+@AllArgsConstructor
 
 @Service
 public class DestinationService {

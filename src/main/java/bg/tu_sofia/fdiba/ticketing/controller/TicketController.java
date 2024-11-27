@@ -12,7 +12,7 @@ import java.util.List;
 public class TicketController {
     private final TicketService ticketService;
 
-    public TicketController(TicketService ticketService) {
+    public TicketController(final TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
@@ -28,10 +28,10 @@ public class TicketController {
 
     @GetMapping("/getTicket")
     public ResponseEntity<Object> getTickets(
-            @RequestParam(required = false) String tripTicketType,
-            @RequestParam(required = false) String startPoint,
-            @RequestParam(required = false) String endPoint,
-            @RequestParam(required = false) String cardType) {
+            @RequestParam(required = false) final String tripTicketType,
+            @RequestParam(required = false) final String startPoint,
+            @RequestParam(required = false) final String endPoint,
+            @RequestParam(required = false) final String cardType) {
 
         return ticketService.findTickets(tripTicketType, cardType ,startPoint, endPoint);
     }

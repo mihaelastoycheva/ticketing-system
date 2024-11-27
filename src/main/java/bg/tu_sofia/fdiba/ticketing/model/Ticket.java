@@ -1,14 +1,11 @@
 package bg.tu_sofia.fdiba.ticketing.model;
 
 import bg.tu_sofia.fdiba.ticketing.enumeration.Day;
-import bg.tu_sofia.fdiba.ticketing.enumeration.TripTicketType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter

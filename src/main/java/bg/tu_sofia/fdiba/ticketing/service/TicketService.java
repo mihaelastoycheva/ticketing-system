@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
@@ -22,7 +21,7 @@ public class TicketService {
     }
 
     public ResponseEntity<String> createTicket(final Ticket ticket) {
-        Ticket buildTicket = Ticket.builder()
+        final Ticket buildTicket = Ticket.builder()
                 .uid(UUID.randomUUID())
                 .startPoint(ticket.getStartPoint())
                 .endPoint(ticket.getEndPoint())
@@ -43,7 +42,7 @@ public class TicketService {
     }
 
     public ResponseEntity<Object> findTickets(String tripTicketType, String cardType, String startPoint, String endPoint) {
-        Specification<Ticket> specification = Specification
+        final Specification<Ticket> specification = Specification
                 .where(tripTicketType != null ? TicketSpecification.hasTripTicketType(tripTicketType) : null)
                 .and(startPoint != null ? TicketSpecification.hasStartPoint(startPoint) : null)
                 .and(endPoint != null ? TicketSpecification.hasEndPoint(endPoint) : null);
@@ -76,7 +75,7 @@ public class TicketService {
         }
 
         discount = (discount * 0.01);
-        double result = Math.round(ticket.getPrice() - (ticket.getPrice() * discount));
+        final double result = Math.round(ticket.getPrice() - (ticket.getPrice() * discount));
 
         return result;
 

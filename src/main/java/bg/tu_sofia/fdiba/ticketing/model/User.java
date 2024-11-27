@@ -28,16 +28,16 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private CardType cardType;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(username, user.username);
-    }
-
     @OneToMany
     private Set<Ticket> tickets;
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {return true;}
+        if (object == null || getClass() != object.getClass()) {return false;}
+        final User user = (User) object;
+        return Objects.equals(username, user.username);
+    }
 
     @Override
     public int hashCode() {
