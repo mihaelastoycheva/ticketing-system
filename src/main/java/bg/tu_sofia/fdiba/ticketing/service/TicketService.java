@@ -64,20 +64,30 @@ public class TicketService {
         double discount = 0;
 
         switch (cardType) {
-            case "STANDARD": break;
-            case "FAMILY": discount += 10; break;
-            case "SENIOR": discount += 34; break;
-            default: break;
+            case "STANDARD":
+                break;
+            case "FAMILY":
+                discount += 10;
+                break;
+            case "SENIOR":
+                discount += 34;
+                break;
+            default:
+                break;
         }
 
-        if ((ticket.getTime() >= 10 && ticket.getTime() <= 16) || (ticket.getTime() >= 19)) {
-            discount += 5;
-        }
+        discount += calculateTimeDiscount(ticket);
 
         discount = (discount * 0.01);
         final double result = Math.round(ticket.getPrice() - (ticket.getPrice() * discount));
 
         return result;
+    }
 
+    private double calculateTimeDiscount(final Ticket ticket) {
+        if ((ticket.getTime() >= 10 && ticket.getTime() <= 16) || (ticket.getTime() >= 19)) {
+            return 5;
+        }
+        return 0;
     }
 }
